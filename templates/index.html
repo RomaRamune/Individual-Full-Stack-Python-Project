@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 style="color:darkblue">Welcome!</h2>
+  <h3 style="color:lightblue">This is the best place to book your dream wardrobe</h3>
+  <p>Currently we can offer:</p>
+  <ul>
+    <li><strong>Wardrobes:</strong> {{ num_products }}</li>
+    <li><strong>Colours:</strong> {{ num_colours }}</li>
+  </ul>
+{% endblock %}

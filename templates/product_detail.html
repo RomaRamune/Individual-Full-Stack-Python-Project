@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <img src="{{ product.cover.url }}" style="margin-bottom: 20px; margin-top: 20px; height: 200px">
+  <h1>{{ product.name }}</h1>
+
+  <p><strong>Summary:</strong> {{ product.summary | safe }}</p>
+  <p><strong>Code:</strong> {{ product.code }}</p>
+  <p><strong>Type:</strong> {{ product.type.all|join:", " }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Instances:</h4>
+
+    {% for copy in product.productinstance_set.all %}
+      <hr>
+      <p><strong>Last order completed on:</strong> {{ copy.due_back }}</p>
+    {% endfor %}
+  </div>
+
+</br>
+  <h4>Feedback:</h4>
+  {% if product.productreview_set.all %}
+    {% for review in product.productreview_set.all %}
+      <hr>
+      <strong>{{ review.reviewer }}</strong>, <em>{{ review.date_created}}</em>
+      <p>{{ review.content }}</p>
+    {% endfor %}
+  {% else %}
+    <p>This wardrobe has no reviews.</p>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+  <div class="fieldWrapper">
+    <hr><br/>
+    <h4>Please leave a feedback for your wardrobe experience:</h4>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.content }}</br>
+      <input type="submit" value="Save">
+    </form>
+  </div>
+  {% endif %}
+
+{% endblock %}

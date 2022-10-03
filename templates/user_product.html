@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>My ordered wardrobe:</h1>
+    <hr>
+        <ul>
+        <img class="rounded-circle" src="{{object.reader.profilis.nuotrauka.url}}">
+        <li><strong class="{% if object.is_overdue %}text-danger{% endif %}">Name: {{object.product.name}}</strong></li>
+        <li><strong>Order should be completed till:</strong> {{object.due_back}}</li>
+        <br/>
+      </li>
+    </ul>
+{% endblock %}

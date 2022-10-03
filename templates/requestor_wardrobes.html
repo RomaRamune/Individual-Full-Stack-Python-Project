@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+    <img class="rounded-circle account-img" src="{{ user.profile.photo.url }}">
+    <h1>My ordered wardrobes</h1>
+
+    {% if products %}
+      {% for productinst in products %}
+    <ul>
+        <li><strong class="{% if productinst.is_overdue %}text-danger{% endif %}">Name: {{productinst.product.name}}</strong></li>
+        <p>
+            {% if productinst.product.cover %}
+              <img src="{{ productinst.product.cover.url }}" class="card-img-top" style="margin-bottom: 20px; margin-top: 20px; width: 100px; height: 100px" alt="...">
+            {% else %}
+              <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+            {% endif %}
+        </p>
+        <p> {{ productinst.product.summary | safe }} </p>
+        <p><strong>Your requirements for us:</strong> {{ productinst.requirements | safe }} </p>
+        <p><strong>Order should be completed till (this option is updated by admin):</strong> {{productinst.due_back}}</p>
+        <a class="btn btn-sm btn-primary" href="{% url 'my_request_update' productinst.id %}">Update</a>
+        <a class="btn btn-sm btn-danger" href="{% url 'my_request_delete' productinst.id %}">Delete</a>
+        <br/>
+    </ul>
+
+      {% endfor %}
+    {% else %}
+        <p>You haven't ordered any wardrobes yet.</p>
+    {% endif %}
+
+    <div class="col-md-6">
+    <nav aria-label="...">
+        {% if products.has_other_pages %}
+            <ul class="pagination pagination-sm justify-content-end">
+                {% for i in products.paginator.page_range %}
+                    {% if products.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link">{{ i }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </nav>
+    </div>
+{% endblock %}

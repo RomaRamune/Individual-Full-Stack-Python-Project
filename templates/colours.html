@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Colours</h1>
+    <p>Here is the list of available colours:</p>
+    {% if colours %}
+        <div class="row">
+            {% for colour in colours %}
+                <div class="col-md-4 d-flex align-items-stretch">
+                  <div class="card mb-4 shadow-sm">
+                    {% if colour.visual %}
+                      <img src="{{ colour.visual.url }}" style="width: 150px; height: 150px" class="card-img-top" alt="...">
+                    {% else %}
+                      <img src="media/covers/no-colour.png" class="card-img-top">
+                    {% endif %}
+                      <div>
+                      <h5 style="text-align:center"> {{ colour.colour }} </h5>
+                    </div>
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>There are no colour examples.</p>
+    {% endif %}
+<div class="container pages">
+    <nav aria-label="...">
+        {% if colours.has_other_pages %}
+            <ul class="pagination pagination-sm justify-content-end">
+                {% for i in colours.paginator.page_range %}
+                    {% if colours.number == i %}
+                        <li class="page-item active">
+                            <a class="page-link">{{ i }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </nav>
+</div>
+{% endblock %}
