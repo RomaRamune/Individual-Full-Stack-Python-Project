@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+  <h1>List of Wardrobes we can offer</h1>
+  {% if product_list %}
+  <div class="row">
+    {% for product in product_list %}
+      <div class="col-md-4 d-flex align-items-stretch">
+          <div class="card mb-4 shadow-sm">
+            {% if product.cover %}
+              <img src="{{ product.cover.url }}" class="card-img-top" alt="...">
+            {% else %}
+              <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+              <h6 class="card-subtitle mb-2 text-muted">{{ product.code }}</h6>
+              <p class="card-text"><a href="{{ product.id }}">{{ product.name }} </a></p>
+                <p> {{ product.summary | safe }} </p>
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <p>Currently there are no available products. Please come back later</p>
+  {% endif %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            {{ page_obj.number }} out of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}
