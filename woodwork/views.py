@@ -112,12 +112,6 @@ class ProductDetailView(FormMixin, generic.DetailView):
         form.instance.reviewer = self.request.user
         form.save()
         return super(ProductDetailView, self).form_valid(form)
-#
-# class OrderedWardrobesByUserListView(LoginRequiredMixin, generic.ListView):
-#     model = ProductInstance
-#     context_object_name = 'products'
-#     template_name = 'requestor_wardrobes.html'
-#     paginate_by = 5
 
 def get_requestor_orders(request):
     paginator = Paginator(ProductInstance.objects.filter(requestor=request.user), 6)
@@ -127,12 +121,6 @@ def get_requestor_orders(request):
         'products': paged_products
     }
     return render(request, 'requestor_wardrobes.html', context=context)
-
-
-# class ProductByUserDetailView(LoginRequiredMixin, generic.DetailView):
-#     model = ProductInstance
-#     template_name = 'user_product.html'
-
 
 class ProductByUserCreateView(LoginRequiredMixin, generic.CreateView):
     model = ProductInstance
