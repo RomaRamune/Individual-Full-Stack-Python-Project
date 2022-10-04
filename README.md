@@ -12,7 +12,7 @@ There is also a possibility for the client to update or delete the order.
 Not registered users can see the example of wardrobes with feedbacks (if any) and colours we currently offer, but only registered users can leave new feedbacks, request/amend/delete orders and see their orders.
 
 # Getting Started
-Download the code from GitHub and install the requirements from requirements.txt
+Download the code from GitHub, get the virtual environment up and running and then install the requirements from requirements.txt
 
 # Use
 Review the site, register and order if you like something 😊 
