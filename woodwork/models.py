@@ -37,7 +37,7 @@ class Product(models.Model):
 class ProductInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique IO for wardrobe copy')
     product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
-    due_back = models.DateField('Will be available to order', null=True, blank=True)
+    due_back = models.DateField('Last order completed on', null=True, blank=True)
     requestor = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     requirements = HTMLField('Your notes for us', max_length=2000, null=True, blank=True, default='', help_text='Enter the date till when you would like to have the wardrobe ready and any other requirements (e.g. size, different colour, your city)')
 
@@ -50,7 +50,7 @@ class ProductInstance(models.Model):
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
-        default='o',
+        default='c',
         help_text='Status',
     )
 
