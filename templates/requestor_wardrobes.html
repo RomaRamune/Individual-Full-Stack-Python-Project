@@ -8,7 +8,7 @@
     {% if products %}
       {% for productinst in products %}
     <ul>
-        <li><strong class="{% if productinst.is_overdue %}text-danger{% endif %}">Name: {{productinst.product.name}}</strong></li>
+        <li><strong>Name: {{productinst.product.name}}</strong></li>
         <p>
             {% if productinst.product.cover %}
               <img src="{{ productinst.product.cover.url }}" class="card-img-top" style="margin-bottom: 20px; margin-top: 20px; width: 100px; height: 100px" alt="...">
